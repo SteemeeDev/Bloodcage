@@ -155,8 +155,13 @@ MonoBehaviour:
   m_rigidBody: {fileID: 251716268}
   moveSpeed: 600
   chainHandler: {fileID: 265637698}
+  otherPlayer: {fileID: 561438034}
   keybinds: 14010000130100001201000011010000
-  player1: 0
+  player1: 1
+  Position: {x: 0, y: 0, z: 0}
+  OtherNewPosition: {x: 0, y: 0, z: 0}
+  PreviousPosition: {x: 0, y: 0, z: 0}
+  OtherPreviousPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &251716268
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -772,7 +777,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e9f2fc4a4b0721459ec6814c526c32b, type: 2}
+  - {fileID: 2100000, guid: 7175eba756adcfc4b888307d9a5802eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -833,9 +838,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rigidBody: {fileID: 561438036}
   moveSpeed: 600
-  chainHandler: {fileID: 0}
+  chainHandler: {fileID: 265637698}
+  otherPlayer: {fileID: 251716272}
   keybinds: 61000000640000007300000077000000
-  player1: 0
+  player1: 1
+  Position: {x: 0, y: 0, z: 0}
+  OtherNewPosition: {x: 0, y: 0, z: 0}
+  PreviousPosition: {x: 0, y: 0, z: 0}
+  OtherPreviousPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &561438036
 Rigidbody:
   m_ObjectHideFlags: 0

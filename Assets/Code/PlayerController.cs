@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] ChainHandler chainHandler;
     [SerializeField] Transform otherPlayer;
+    [SerializeField] Transform playerModel;
 
     [SerializeField] private KeyCode[] keybinds;
 
@@ -58,6 +59,11 @@ public class PlayerController : MonoBehaviour
         otherPlayer.position += (d1 * (0.5f * d3));
     }
 
+    void PullOtherPlayer()
+    {
+        otherPlayer.GetComponent<Rigidbody>().AddForce(otherPlayerDistance.normalized*200);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -71,12 +77,13 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(keybinds[3])) inputY = 1;
         else    inputY = 0;
 
-        if (player1) otherPlayerDistance = transform.position - chainHandler.player2.position;
-        else otherPlayerDistance = transform.position - chainHandler.player1.position;
+        otherPlayerDistance = transform.position - otherPlayer.position;
 
         moveVelocity = new Vector3(inputX, 0, inputY);
-
         moveVelocity.Normalize();
+
+        playerModel.LookAt(transform.position + m_rigidBody.linearVelocity);
+
         moveVelocity *= moveSpeed;
 
         m_rigidBody.AddForce(moveVelocity * Time.deltaTime);
@@ -87,4 +94,10 @@ public class PlayerController : MonoBehaviour
             FixDistanceBetweenPlayers();
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(keybinds[4])) PullOtherPlayer();
+    }
+
 }

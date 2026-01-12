@@ -23,7 +23,7 @@ public class ChainHandler : MonoBehaviour
 
     private void Update()
     {
-        if (playerDistance > maxPlayerDistance)
+        if (playerDistance > maxPlayerDistance * 0.9f)
         {
             chainRenderer.startColor = Color.red;
             chainRenderer.endColor = Color.red;

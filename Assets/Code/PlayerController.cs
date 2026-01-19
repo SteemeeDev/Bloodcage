@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform otherPlayer;
     [SerializeField] Transform playerModel;
 
+    [SerializeField] private float chargeUpTime;
+    [SerializeField] private ChargeUpBar chargeUpBar;
+
     [SerializeField] private KeyCode[] keybinds;
 
     float inputX;
@@ -54,14 +57,19 @@ public class PlayerController : MonoBehaviour
         var d2 = d1.magnitude;
         var d3 = (d2 - chainHandler.maxPlayerDistance) / d2;
 
-        Debug.Log("d1: " + d1 + ", d2: " + d2 + ", d3: " + d3);
+       // Debug.Log("d1: " + d1 + ", d2: " + d2 + ", d3: " + d3);
         transform.position -= (d1 * (0.5f * d3));
         otherPlayer.position += (d1 * (0.5f * d3));
     }
 
-    void PullOtherPlayer()
+    void PullOtherPlayer(float pullForce)
     {
-        otherPlayer.GetComponent<Rigidbody>().AddForce(otherPlayerDistance.normalized*200);
+        otherPlayer.GetComponent<Rigidbody>().AddForce(otherPlayerDistance.normalized * pullForce);
+    }
+
+    private void Start()
+    {
+        chargeUpBar.maxValue = chargeUpTime;
     }
 
     // Update is called once per frame
@@ -95,9 +103,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    float chargeUp = 0;
     private void Update()
     {
-        if (Input.GetKeyDown(keybinds[4])) PullOtherPlayer();
+        if (Input.GetKey(keybinds[4]))
+        {
+            chargeUp += Time.deltaTime;
+            chargeUpBar.value = Mathf.Min(chargeUp, chargeUpTime);
+        }
+        if (Input.GetKeyUp(keybinds[4]))
+        {
+            if (chargeUp > chargeUpTime) chargeUp = chargeUpTime;    
+            PullOtherPlayer(chargeUp / chargeUpTime * 700);
+            chargeUp = 0;
+            chargeUpBar.value = 0;
+        }
     }
 
 }

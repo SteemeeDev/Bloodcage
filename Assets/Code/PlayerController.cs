@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody m_rigidBody;
+    [SerializeField] private Animator m_animator;
     [SerializeField] private float moveSpeed;
     [SerializeField] ChainHandler chainHandler;
     [SerializeField] Transform otherPlayer;
@@ -91,6 +92,18 @@ public class PlayerController : MonoBehaviour
         moveVelocity.Normalize();
 
         playerModel.LookAt(transform.position + m_rigidBody.linearVelocity);
+
+        if (m_animator != null)
+        {
+            if (moveVelocity.magnitude > 0.1f)
+            {
+                m_animator.SetBool("Walking", true);
+            }
+            else
+            {
+                m_animator.SetBool("Walking", false);
+            }
+        }
 
         moveVelocity *= moveSpeed;
 

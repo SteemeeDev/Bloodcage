@@ -9,7 +9,7 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(attackButton))
         {
-            animator.SetTrigger("Swipe");
+            animator.SetTrigger("Attack");
         }
     }
 }

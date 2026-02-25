@@ -24,12 +24,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveVelocity;
     Vector3 otherPlayerDistance;
 
-    public bool player1;
-
     
-    Vector3 m_Gravity = new Vector3(0, -4, 0);
-    float m_DistanceBetweenNodes = 0.5f;
-    int m_ConstraintIterationCount = 4;
 
     public Vector3 Position;
     public Vector3 OtherNewPosition;
@@ -68,8 +63,10 @@ public class PlayerController : MonoBehaviour
         otherPlayer.GetComponent<Rigidbody>().AddForce(otherPlayerDistance.normalized * pullForce);
     }
 
+    float originalMoveSpeed;
     private void Start()
     {
+        originalMoveSpeed = moveSpeed;
         chargeUpBar.maxValue = chargeUpTime;
     }
 
@@ -88,11 +85,6 @@ public class PlayerController : MonoBehaviour
 
         otherPlayerDistance = transform.position - otherPlayer.position;
 
-        moveVelocity = new Vector3(inputX, 0, inputY);
-        moveVelocity.Normalize();
-
-        playerModel.LookAt(transform.position + m_rigidBody.linearVelocity);
-
         if (m_animator != null)
         {
             if (moveVelocity.magnitude > 0.1f)
@@ -104,6 +96,10 @@ public class PlayerController : MonoBehaviour
                 m_animator.SetBool("Walking", false);
             }
         }
+        moveVelocity = new Vector3(inputX, 0, inputY);
+        moveVelocity.Normalize();
+
+        playerModel.LookAt(transform.position + m_rigidBody.linearVelocity);
 
         moveVelocity *= moveSpeed;
 
@@ -123,6 +119,7 @@ public class PlayerController : MonoBehaviour
         {
             chargeUp += Time.deltaTime;
             chargeUpBar.value = Mathf.Min(chargeUp, chargeUpTime);
+            moveSpeed = originalMoveSpeed * 0.5f;
         }
         if (Input.GetKeyUp(keybinds[4]))
         {
@@ -130,6 +127,7 @@ public class PlayerController : MonoBehaviour
             PullOtherPlayer(chargeUp / chargeUpTime * 700);
             chargeUp = 0;
             chargeUpBar.value = 0;
+            moveSpeed = originalMoveSpeed;
         }
     }
 

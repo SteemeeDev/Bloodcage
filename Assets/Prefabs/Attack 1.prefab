@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6806850697339772832}
   - component: {fileID: 3393076684562050520}
   - component: {fileID: 482132826937462185}
+  - component: {fileID: 8813658182121656017}
   m_Layer: 0
   m_Name: Attack 1
   m_TagString: Untagged
@@ -112,3 +113,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8813658182121656017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600132788964367933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a6ff0151acaf149b0bbc1ebf19dd2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAoeAttack
+  mat: {fileID: 2100000, guid: 7175eba756adcfc4b888307d9a5802eb, type: 2}
+  chargeUpTime: 4
